@@ -1,0 +1,28 @@
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/home"
+        title="Home"
+        activeColor="@color/colorAccent"
+        />
+    <tab
+        id="@+id/tab_kids"
+        icon="@drawable/mykids"
+        title="Mykids"
+        activeColor="@color/colorAccent" />
+    <tab
+        id="@+id/tab_gallery"
+        icon="@drawable/gallery"
+        title="Gallery"
+        activeColor="@color/colorAccent"/>
+    <tab
+        id="@+id/tab_notification"
+        icon="@drawable/notification"
+        title="Notification"
+        activeColor="@color/colorAccent"/>
+    <tab
+        id="@+id/tab_more"
+        icon="@drawable/more"
+        title="More"
+        activeColor="@color/colorAccent"/>
+</tabs>
