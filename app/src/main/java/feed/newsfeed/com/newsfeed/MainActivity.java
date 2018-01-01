@@ -112,10 +112,23 @@ public class MainActivity extends AppCompatActivity {
                                     title = json.getString("title");
                                     description = json.getString("description");
                                     comment = json.getString("comments");
-                                    image = "uploads/story/images2017-12-31_09:01:53_33_1_image.png";
+
+                                    JSONArray st = json.getJSONArray("files");
+
+                                    for(int k=0;k<st.length();k++)
+                                    {
+                                        image = st.getString(k);
+                                    }
+
+
+                                   // Log.d("valuedata"+admin_name,""+created_at+""+updated_at+""+title+""+description+""+comment+""+image);
+
+                                    //image = json.getString("files");
 
                                     feedItem.add(new FeedItem(admin_name,created_at,updated_at,title,description,comment,image));
                                     fAdapter.notifyDataSetChanged();
+
+
                                     //feeditem.setAdmin_name(admin_name);
                                     //feeditem.setCreated_at(created_at);
                                     //feeditem.setUpdated_at(updated_at);
@@ -125,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                     //feeditem.setImage(image);
 
                                     //feedItem.add(feeditem);
-                                    Log.d("data",created_at+""+updated_at+""+title+""+description+""+comment);
+                                    //Log.d("data",image);
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

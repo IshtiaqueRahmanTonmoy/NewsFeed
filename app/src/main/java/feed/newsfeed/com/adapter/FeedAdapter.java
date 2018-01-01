@@ -66,12 +66,19 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
         holder.updateAt.setText(feed.getUpdated_at());
         holder.title.setText(feed.getTitle());
         holder.description.setText(feed.getDescription());
-        holder.comment.setText(feed.getComment());
-        Glide.with(mContext).load(feed.getImage())
-                .thumbnail(0.5f)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.thumbnail);
+        holder.comment.setText("0 comments");
+        try {
+            //File file = new File(list.get(position).getImage());
+            //Toast.makeText(mContext, ""+file, Toast.LENGTH_SHORT).show();
+            Glide.with(mContext)
+                    .load("http://cc.krazyit.com.au/"+feed.getImage())
+                    .asBitmap()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(holder.thumbnail);
+        } catch (Exception e) {
+        }
+
     }
 
     @Override
