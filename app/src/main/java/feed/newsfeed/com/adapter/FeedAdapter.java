@@ -10,9 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.gson.Gson;
+import java.lang.reflect.Type;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import feed.newsfeed.com.newsfeed.R;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import feed.newsfeed.com.entity.FeedItem;
@@ -23,12 +31,13 @@ import feed.newsfeed.com.entity.FeedItem;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> {
 
-    private List<FeedItem> feedItem;
+    private List<FeedItem> feedItems;
+    private List<FeedItem> imglist = new ArrayList<FeedItem>();
     private Context mContext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView adminName,createdAt,updateAt,title,description,comment;
-        public ImageView thumbnail,like;
+        public ImageView thumbnail,thumbnails,thumbnailss,like;
 
         public MyViewHolder(View view) {
             super(view);
@@ -39,14 +48,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
             description = (TextView) view.findViewById(R.id.description);
             comment = (TextView) view.findViewById(R.id.comment);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+            thumbnails = (ImageView) view.findViewById(R.id.thumbnails);
+            thumbnailss = (ImageView) view.findViewById(R.id.thumbnailss);
             like = (ImageView) view.findViewById(R.id.like);
         }
     }
 
 
-    public FeedAdapter(Context context, List<FeedItem> feedItem) {
+    public FeedAdapter(Context context, List<FeedItem> feedItems) {
         mContext = context;
-        this.feedItem = feedItem;
+        this.feedItems = feedItems;
     }
 
     @Override
@@ -59,7 +70,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        FeedItem feed = feedItem.get(position);
+        FeedItem feed = feedItems.get(position);
 
         holder.adminName.setText(feed.getAdmin_name());
         holder.createdAt.setText(feed.getCreated_at());
@@ -67,23 +78,77 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
         holder.title.setText(feed.getTitle());
         holder.description.setText(feed.getDescription());
         holder.comment.setText("0 comments");
-        try {
-            //File file = new File(list.get(position).getImage());
-            //Toast.makeText(mContext, ""+file, Toast.LENGTH_SHORT).show();
-            Glide.with(mContext)
-                    .load("http://cc.krazyit.com.au/"+feed.getImage())
-                    .asBitmap()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(holder.thumbnail);
-        } catch (Exception e) {
+
+        if(position==1) {
+            try {
+                //File file = new File(list.get(position).getImage());
+                //Toast.makeText(mContext, ""+file, Toast.LENGTH_SHORT).show();
+                Glide.with(mContext)
+                        .load("http://cc.krazyit.com.au/uploads/story/images2017-12-31_09:01:53_33_1_image.png")
+                        .asBitmap()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(holder.thumbnail);
+
+                Glide.with(mContext)
+                        .load("http://cc" +
+                                ".krazyit.com.au/uploads/story/images2017-12-31_09:01:53_33_2_image.png")
+                        .asBitmap()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(holder.thumbnails);
+
+                Glide.with(mContext)
+                        .load("http://cc.krazyit.com.au/uploads/story/images2017-12-31_09:01:53_33_3_image.png")
+                        .asBitmap()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(holder.thumbnailss);
+
+            } catch (Exception e) {
+            }
         }
+
+            if(position==2){
+                try {
+                    //File file = new File(list.get(position).getImage());
+                    //Toast.makeText(mContext, ""+file, Toast.LENGTH_SHORT).show();
+                    Glide.with(mContext)
+                            .load("http://cc.krazyit.com.au/uploads/story/images2017-12-31_08:59:02_33_1_image.png")
+                            .asBitmap()
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .into(holder.thumbnail);
+
+                    Glide.with(mContext)
+                            .load("http://cc" +
+                                    ".krazyit.com.au/uploads/story/images2017-12-31_08:59:02_33_2_image.png")
+                            .asBitmap()
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .into(holder.thumbnails);
+
+                    Glide.with(mContext)
+                            .load("http://cc.krazyit.com.au/uploads/story/images2017-12-31_08:59:02_33_3_image.png")
+                            .asBitmap()
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .into(holder.thumbnailss);
+
+                } catch (Exception e) {
+                }
+            }
+        //Gson gson = new Gson();
+        //Type type = new TypeToken<List<FeedItem>>(){}.getType();
+        //imglist = gson.fromJson(feed.getImage(), type);
+        //Toast.makeText(mContext, ""+imglist.size(), Toast.LENGTH_SHORT).show();
+
 
     }
 
     @Override
     public int getItemCount() {
-        return feedItem.size();
+        return feedItems.size();
     }
 
     public interface ClickListener {

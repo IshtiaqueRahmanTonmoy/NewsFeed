@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -39,7 +40,7 @@ import feed.newsfeed.com.entity.FeedItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String admin_name,created_at,updated_at,title,description,comment,image;
+    private String admin_name,created_at,updated_at,title,description,comment,image,images;
     private BottomBar bottomBar;
     private RecyclerView recyclerView;
     private String TAG = MainActivity.class.getSimpleName();
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(fAdapter);
 
         fetchData();
-        
+
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
@@ -117,11 +118,16 @@ public class MainActivity extends AppCompatActivity {
 
                                     for(int k=0;k<st.length();k++)
                                     {
-                                        image = st.getString(k);
+                                        images = st.getString(k);
+                                        image = new Gson().toJson(images);
+                                        Log.d("imgs",image);
                                     }
 
 
-                                   // Log.d("valuedata"+admin_name,""+created_at+""+updated_at+""+title+""+description+""+comment+""+image);
+
+                                    //Log.d("im",image);
+                                    //Toast.makeText(MainActivity.this, ""+image, Toast.LENGTH_SHORT).show();
+                                    // Log.d("valuedata"+admin_name,""+created_at+""+updated_at+""+title+""+description+""+comment+""+image);
 
                                     //image = json.getString("files");
 

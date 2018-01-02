@@ -28,6 +28,10 @@ public class FeedItem {
 
     }
 
+    public FeedItem(String image) {
+        this.image = image;
+    }
+
     public String getComment() {
         return comment;
     }
