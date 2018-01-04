@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -44,12 +45,11 @@ public class MainActivity extends AppCompatActivity {
     private BottomBar bottomBar;
     private RecyclerView recyclerView;
     private String TAG = MainActivity.class.getSimpleName();
-    private static final String endpoint = "https://api.androidhive.info/json/glide.json";
-    private ArrayList<FeedItem> feedItem;
+    private ArrayList<FeedItem> feedItem,imagelist;
     private ProgressDialog pDialog;
     private FeedAdapter fAdapter;
     private StringRequest stringRequest;
-
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         pDialog = new ProgressDialog(this);
         feedItem = new ArrayList<>();
+        imagelist = new ArrayList<>();
 
         fAdapter = new FeedAdapter(getApplicationContext(), feedItem);
 
@@ -69,6 +70,30 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(fAdapter);
+
+        recyclerView.addOnItemTouchListener(new FeedAdapter.RecyclerTouchListener(getApplicationContext(), recyclerView, new FeedAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                //Toast.makeText(MainActivity.this, "positions"+position, Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("images", imagelist);
+                bundle.putInt("position", position);
+
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                SlideshowDialogFragment newFragment = SlideshowDialogFragment.newInstance();
+                newFragment.setArguments(bundle);
+                newFragment.show(ft, "slideshow");
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
 
         fetchData();
 
@@ -119,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                                     for(int k=0;k<st.length();k++)
                                     {
                                         images = st.getString(k);
+                                        imagelist.add(new FeedItem(images));
                                         image = new Gson().toJson(images);
                                         Log.d("imgs",image);
                                     }
@@ -133,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     feedItem.add(new FeedItem(admin_name,created_at,updated_at,title,description,comment,image));
                                     fAdapter.notifyDataSetChanged();
+                                    progressDialog.dismiss();
 
 
                                     //feeditem.setAdmin_name(admin_name);
@@ -166,9 +193,9 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
         requestQueue.add(stringRequest);
-        //progressDialog = new ProgressDialog(MainActivity.this);
-        //progressDialog.setMessage("Please wait....");
-        //progressDialog.show();
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setMessage("Please wait....");
+        progressDialog.show();
     }
 
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {

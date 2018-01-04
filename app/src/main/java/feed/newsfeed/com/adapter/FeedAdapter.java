@@ -20,7 +20,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import feed.newsfeed.com.newsfeed.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import feed.newsfeed.com.entity.FeedItem;
@@ -34,6 +37,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
     private List<FeedItem> feedItems;
     private List<FeedItem> imglist = new ArrayList<FeedItem>();
     private Context mContext;
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView adminName,createdAt,updateAt,title,description,comment;
@@ -43,7 +47,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
             super(view);
             adminName = (TextView) view.findViewById(R.id.adminName);
             createdAt = (TextView) view.findViewById(R.id.created_at);
-            updateAt = (TextView) view.findViewById(R.id.update_at);
+            //updateAt = (TextView) view.findViewById(R.id.update_at);
             title = (TextView) view.findViewById(R.id.titlevalue);
             description = (TextView) view.findViewById(R.id.description);
             comment = (TextView) view.findViewById(R.id.comment);
@@ -73,11 +77,38 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
         FeedItem feed = feedItems.get(position);
 
         holder.adminName.setText(feed.getAdmin_name());
-        holder.createdAt.setText(feed.getCreated_at());
-        holder.updateAt.setText(feed.getUpdated_at());
+        holder.createdAt.setText("4d ago");
+        //holder.updateAt.setText(feed.getUpdated_at());
         holder.title.setText(feed.getTitle());
         holder.description.setText(feed.getDescription());
-        holder.comment.setText("0 comments");
+        holder.comment.setText("7 comments");
+
+        /*
+        try {
+            Date date1 = simpleDateFormat.parse(feed.getCreated_at().toString());
+            Date date2 = simpleDateFormat.parse(feed.getUpdated_at().toString());
+
+            Toast.makeText(mContext, ""+date1+""+date2, Toast.LENGTH_SHORT).show();
+            long different = date2.getTime() - date1.getTime();
+
+
+            long secondsInMilli = 1000;
+            long minutesInMilli = secondsInMilli * 60;
+            long hoursInMilli = minutesInMilli * 60;
+            long daysInMilli = hoursInMilli * 24;
+
+            long elapsedDays = different / daysInMilli;
+            //Toast.makeText(mContext, ""+elapsedDays, Toast.LENGTH_SHORT).show();
+
+            String day = String.valueOf(elapsedDays);
+            holder.createdAt.setText(day);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        */
+
+
 
         if(position==1) {
             try {
@@ -91,8 +122,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
                         .into(holder.thumbnail);
 
                 Glide.with(mContext)
-                        .load("http://cc" +
-                                ".krazyit.com.au/uploads/story/images2017-12-31_09:01:53_33_2_image.png")
+                        .load("http://cc.krazyit.com.au/uploads/story/images2017-12-31_09:01:53_33_2_image.png")
                         .asBitmap()
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -138,11 +168,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
                 } catch (Exception e) {
                 }
             }
+
+
         //Gson gson = new Gson();
         //Type type = new TypeToken<List<FeedItem>>(){}.getType();
         //imglist = gson.fromJson(feed.getImage(), type);
         //Toast.makeText(mContext, ""+imglist.size(), Toast.LENGTH_SHORT).show();
-
 
     }
 
