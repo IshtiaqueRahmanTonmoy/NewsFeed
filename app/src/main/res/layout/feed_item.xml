@@ -12,9 +12,7 @@
         android:layout_marginRight="@dimen/feed_item_margin"
         android:layout_marginTop="@dimen/feed_item_margin"
         android:background="@drawable/back"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/feed_item_padding_top_bottom"
-        android:paddingTop="@dimen/feed_item_padding_top_bottom">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -25,9 +23,10 @@
 
             <TextView
                 android:id="@+id/adminName"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_marginLeft="7dp"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -38,6 +37,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical"
+            android:paddingBottom="7dp"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="5dp"
             android:gravity="bottom" >
@@ -46,10 +46,14 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout1"
                 android:layout_width="fill_parent"
+                android:background="@drawable/custom_rects"
+                android:paddingTop="5dp"
+                android:paddingBottom="7dp"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/titlevalue"
+                    android:layout_marginLeft="7dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="prev"
@@ -60,6 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="next"
+                    android:layout_marginRight="9dp"
                     android:layout_alignParentRight="true"/>
 
             </RelativeLayout>
@@ -68,10 +73,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg_parent_rounded_corner"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -122,11 +126,13 @@
 
         <TextView
             android:id="@+id/description"
+            android:background="@drawable/custom_rects"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:linksClickable="true"
             android:paddingBottom="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="10dp"
             android:textStyle="bold"
             android:paddingLeft="@dimen/feed_item_status_pad_left_right"
             android:paddingRight="@dimen/feed_item_status_pad_left_right" />
@@ -135,7 +141,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/feed_item_margin"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
@@ -143,9 +150,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
+                android:layout_marginLeft="8dp"
                 android:linksClickable="true"
                 android:paddingBottom="5dp"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:paddingLeft="@dimen/feed_item_status_pad_left_right"
                 android:paddingRight="@dimen/feed_item_status_pad_left_right"
                 android:text="0 comment" />
@@ -156,7 +164,8 @@
                 android:layout_height="@dimen/feed_comment"
                 android:background="@drawable/like"
                 android:paddingBottom="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="8dp"
                 android:scaleType="fitCenter"></ImageView>
 
             <TextView
@@ -165,8 +174,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:linksClickable="true"
-                android:paddingBottom="5dp"
-                android:textSize="15sp"
+                android:paddingBottom="7dp"
+                android:textSize="17sp"
                 android:paddingLeft="@dimen/feed_item_status_pad_left_right"
                 android:paddingRight="@dimen/feed_item_status_pad_left_right"
                 android:text="1" />

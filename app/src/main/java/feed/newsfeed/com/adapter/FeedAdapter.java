@@ -81,7 +81,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
         //holder.updateAt.setText(feed.getUpdated_at());
         holder.title.setText(feed.getTitle());
         holder.description.setText(feed.getDescription());
-        holder.comment.setText("7 comments");
+        holder.comment.setText("7 Comments");
 
         /*
         try {
